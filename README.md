@@ -3,13 +3,11 @@
 </p>
 
 - [Description](#desc)
-- [Changes](#changes)
 - [Dependencies](#depend)
   - [Python](#python_dep)
   - [External](#ext_dep)
   - [Optional](#opt_dep)
 - [Install](#install)
-  - [AUR](#install_aur)
   - [Setuptools](#install_st)
   - [Manual](#install_manual)
 - [Usage](#usage)
@@ -31,31 +29,10 @@
 
 # Description
 
-Reflex-Curses is a TUI/CLI wrapper around streamlink, allowing for easy launching
+[Reflex-Curses](https://github.com/Foldex/reflex-curses) is a TUI/CLI wrapper around streamlink, allowing for easy launching
 of twitch.tv streams from your terminal.
 
-Fork of [twitch-curses](https://gitlab.com/corbie/twitch-curses) with added features.
-
-<a id="changes"></a>
-
-# Changes
-
-- Rewritten with classes
-- Launch multiple streams at once
-- Stream process no longer tied to terminal (setsid)
-- Launch chat for selected stream (browser/weechat/irssi)
-- Copy channel URL to clipboard (xclip)
-- Locally follow channels (No account needed) (+Imports from file/twitch user)
-- Custom Config File
-- VOD Support
-- Search by game name
-- Top streams view
-- Language filter (Game search only)
-- Vim like keybinds
-- Updated to Twitch v5 API
-- Color support
-- Fixed crashing with super small terminal resizing
-- Run one off cli commands
+This fork is only for testing purposes and not actively maintained. It uses GNOME apps like `totem` and `gnome-terminal` by default, apart from some other minor changes like "improved" weechat support.
 
 <a id="depend"></a>
 
@@ -81,19 +58,13 @@ Fork of [twitch-curses](https://gitlab.com/corbie/twitch-curses) with added feat
 ## Optional
 
 - firefox (default browser)
-- mpv (default player)
-- urxvt (default terminal)
-- weechat / irssi (irc)
+- totem (default player)
+- gnome-terminal (default terminal)
+- weechat (recommended) / irssi
 
 <a id="install"></a>
 
 # Installation
-
-<a id="install_aur"></a>
-
-## Arch AUR
-
-`yay -S reflex-curses`
 
 <a id="install_st"></a>
 
@@ -153,11 +124,11 @@ An example dmenu script is [Here](./scripts/dmenu_streams.sh)
 | Key       | Description                               |
 |---------  |-----------------------------------------  |
 | h         | Go back                                   |
-| j         | Move cursor down                          |
-| k         | Move cursor up                            |
-| l / Enter | Enter menu or launch stream               |
-| n         | Next Page                                 |
-| p         | Previous page                             |
+| s         | Move cursor down                          |
+| w         | Move cursor up                            |
+| e / Enter | Enter menu or launch stream               |
+| d         | Next Page                                 |
+| a         | Previous page                             |
 | r         | Refresh last query                        |
 
 <a id="view_keys"></a>
@@ -167,8 +138,8 @@ An example dmenu script is [Here](./scripts/dmenu_streams.sh)
 | Key       | Description                               |
 |---------  |-----------------------------------------  |
 | f         | Go to followed view                       |
-| s         | Go to top streams view                    |
-| t         | Go to top games view                      |
+| S         | Go to top streams view                    |
+| G         | Go to top games view                      |
 | v         | Go to VOD view                            |
 
 <a id="search_keys"></a>
@@ -187,7 +158,7 @@ An example dmenu script is [Here](./scripts/dmenu_streams.sh)
 | Key       | Description                               |
 |---------  |-----------------------------------------  |
 | -         | Decrease quality                          |
-| =         | Increase quality                          |
+| +         | Increase quality                          |
 
 <a id="follow_keys"></a>
 
@@ -195,10 +166,10 @@ An example dmenu script is [Here](./scripts/dmenu_streams.sh)
 
 | Key       | Description                                |
 |---------  |------------------------------------------  |
-| a         | Add channel to followed list               |
-| d         | Delete channel from followed list          |
+| A         | Add channel to followed list               |
+| k         | Delete channel from followed list          |
 | i         | Import follows from twitch user (limited)  |
-| o         | Toggle online/all streams in followed list |
+| f         | Toggle online/all streams in followed list |
 
 <a id="misc_keys"></a>
 
@@ -226,47 +197,48 @@ Default Config Example:
 
 ```
 [keys]
-add = a
+add = A
 chat = c
-delete = d
+delete = k
 followed = f
 game = g
 back = h
-down = j
-up = k
-forward = l
-online = o
+import = i
+down = s
+up = w
+forward = e
+online = f
 quit = q
 refresh = r
-t_stream = s
-t_game = t
+t_stream = S
+t_game = G
 search = /
 vods = v
 yank = y
-page+ = n
-page- = p
-qual+ = =
+page+ = d
+page- = a
+qual+ = +
 qual- = -
 
 [exec]
 browser = firefox --new-window
-chat_method = browser
-player = mpv --force-window=yes
-streamlink = streamlink -t '{author} - {title}' --twitch-disable-hosting 
-term = urxvt -e
+chat_method = weechat
+player = totem
+streamlink = streamlink --twitch-disable-hosting --twitch-disable-ads --player-passthrough hls
+term = gnome-terminal --geometry=36x38 --zoom=1.2 --
 
 [twitch]
 client_id = caozjg12y6hjop39wx996mxn585yqyk
-lang =
+lang = en
 results_limit = 75
 retry_limit = 3
 
 [ui]
-default_state = games
-hl_color = blue
+default_state = followed
+hl_color = red
 l_win_color = white
 r_win_color = green
-quality = best
+quality = 720p
 show_borders = True
 show_keys = True
 

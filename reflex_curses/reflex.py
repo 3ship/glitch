@@ -22,43 +22,44 @@ VERSION = "0.9.4"
 class Config:
     """Configuration Variables and Locally Followed Twitch Channels."""
 
-    def __init__(self):
+    def _it__(self):
         self.config_dir = path.expanduser("~/.config/reflex-curses")
         self.followed = {}
         self.cp = configparser.ConfigParser()
 
         # Setup Default Values
+        # Changed from reflex-curses for WASD navigation
         self.cp["keys"] = {
-            "add": "a",  # Add channel follow / Show all followed
+            "add": "A",  # Add channel follow / Show all followed
             "chat": "c",  # Open chat with chat_method
-            "delete": "d",  # Delete channel from followed list
+            "delete": "k",  # Delete channel from followed list
             "followed": "f",  # Switch to followed view
             "game": "g",  # Search by Game Name (exact)
             "back": "h",  # Go to initial view
             "import": "i",  # Import follows from twitch user
-            "down": "j",  # Move cursor down
-            "up": "k",  # Move cursor up
-            "forward": "l",  # Enter menu or launch stream
-            "online": "o",  # Toggle online/all streams in followed list
+            "down": "s",  # Move cursor down
+            "up": "w",  # Move cursor up
+            "forward": "e",  # Enter menu or launch stream
+            "online": "f",  # Toggle online/all streams in followed list
             "quit": "q",  # Quit
             "refresh": "r",  # Resend last query
-            "t_stream": "s",  # Go to top streams view
-            "t_game": "t",  # Go to top games view
+            "t_stream": "S",  # Go to top streams view
+            "t_game": "G",  # Go to top games view
             "search": "/",  # Search for streams
             "vods": "v",  # Go to VOD view
             "yank": "y",  # Yank channel url
-            "page+": "n",  # Next Page
-            "page-": "p",  # Previous page
-            "qual+": "=",  # Select higher quality
+            "page+": "d",  # Next Page
+            "page-": "a",  # Previous page
+            "qual+": "+",  # Select higher quality
             "qual-": "-",  # Select lower quality
         }
 
         self.cp["exec"] = {
             "browser": "firefox --new-window",
             "chat_method": "browser",  # browser/weechat/irc
-            "player": "mpv --force-window=yes",
-            "streamlink": "streamlink -t '{author} - {title}' --twitch-disable-hosting --twitch-disable-ads",
-            "term": "urxvt -e",
+            "player": "totem",
+            "streamlink": "streamlink --twitch-disable-hosting --twitch-disable-ads --player-passthrough hls",
+            "term": "gnome-terminal --geometry=36x38 --zoom=1.2 --",
         }
 
         self.cp["twitch"] = {
@@ -71,8 +72,8 @@ class Config:
 
         self.cp["ui"] = {
             # Supported Colors: black/blue/cyan/green/magenta/white/yellow/red
-            "default_state": "games",  # Initial view: games/followed/streams
-            "hl_color": "blue",  # Color of selected item highlight
+            "default_state": "followed",  # Initial view: games/followed/streams
+            "hl_color": "red",  # Color of selected item highlight
             "l_win_color": "white",  # Color of left window
             "r_win_color": "green",  # Color of right window
             "quality": "best",  # Default quality selection
@@ -154,7 +155,7 @@ class Config:
 class Interface:
     """Curses Interface to display results from Twitch Queries."""
 
-    def __init__(self):
+    def _it__(self):
         self.screen = curses.initscr()
         curses.noecho()
         curses.cbreak()
@@ -494,7 +495,7 @@ class Interface:
 class Keybinds:
     """User input and what to do with pressed keys."""
 
-    def __init__(self):
+    def _it__(self):
         self.cur_key = 0
         self.nav = self.Navigation()
         self.quality = self.Quality()
@@ -639,12 +640,12 @@ class Keybinds:
         def follow_view(self):
             """Go to the followed channels page
             Or Toggle online/all follows"""
-            if (user_input.cur_key == config.cp["keys"]["followed"] and ui.state != "follow") or (
-                user_input.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "all"
+            if (userput.cur_key == config.cp["keys"]["followed"] and ui.state != "follow") or (
+                userput.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "all"
             ):
                 twitch.request(["channel", ",".join(config.followed.values())], "follow")
                 ui.f_filter = "online"
-            elif (user_input.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "online"):
+            elif (userput.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "online"):
                 ui.f_filter = "all"
 
         def add(self):
@@ -677,7 +678,7 @@ class Keybinds:
                 if ui.cur_page:
                     del config.followed[ui.cur_page[ui.sel]["channel"]["name"]]
                     twitch.query = ["channel", ",".join(config.followed.values())]
-                    user_input.request.refresh()
+                    userput.request.refresh()
 
         def user_import(self):
             """Import follows from user"""
@@ -690,7 +691,7 @@ class Keybinds:
             if user:
                 config.import_follows_from_user(user, overwrite)
                 twitch.query = ["channel", ",".join(config.followed.values())]
-                user_input.request.refresh()
+                userput.request.refresh()
 
     class Request:
         """Keys used to query twitch"""
@@ -774,13 +775,26 @@ class Keybinds:
                         f"/set irc.server.{network}.nicks justinfan{num};"
                         f"/set irc.server.{network}.username justinfan{num};"
                         f"/set irc.server.{network}.realname justinfan{num};"
+                        # Removing all the weechat clutter to get a simplified chat window
+                        # Also disabling logs to save space
+                        # Doing it here because I don't know wtf I'm doing:
+                        f"/set weechat.bar.buflist.hidden on;"
+                        f"/set weechat.bar.nicklist.hidden on;"
+                        f"/set weechat.bar.status.hidden on;"
+                        f"/set weechat.bar.title.hidden on;"
+                        f"/set weechat.bar.input.hidden on;"
+                        f"/set weechat.look.prefix_align_max 6;"
+                        f'/set weechat.look.buffer_time_format "";'
+                        f"/set logger.file.auto_log off;"
                     )
                 else:
                     nicks = ""
 
                 cmd = (
                     f"{config.cp['exec']['term']} "
-                    "weechat -r '"
+                    # Using weechat's -t flag to create a new temporary config directory
+                    # This allows us to open multiple chat windows
+                    "weechat -tr '"
                     f"/server add {network} "
                     f"{config.cp['irc']['address']}/{config.cp['irc']['port']};"
                     f"/set irc.server.{network}.command "
@@ -814,7 +828,7 @@ class Keybinds:
 class Query:
     """Make requests to Twitch and store results."""
 
-    def __init__(self):
+    def _it__(self):
         self.cache = []
         self.data = []
         self.query = ["topgames", None]
@@ -930,7 +944,7 @@ class Query:
 class CLI:
     """Commands to be run without the TUI interface"""
 
-    def __init__(self):
+    def _it__(self):
         self.arg_num = len(sys.argv)
         self.cur_arg = sys.argv[1]
 
@@ -1054,7 +1068,7 @@ def main():
     try:
         twitch.get_default_view()
 
-        while user_input.cur_key != config.cp["keys"]["quit"]:
+        while userput.cur_key != config.cp["keys"]["quit"]:
 
             if ui.donothing:
                 ui.donothing = False
@@ -1068,7 +1082,7 @@ def main():
                     ui.draw_win_l()
                     ui.draw_win_r()
 
-            user_input.input()
+            userput.input()
     finally:
         curses.nocbreak()
         ui.screen.keypad(0)
@@ -1091,7 +1105,7 @@ if len(sys.argv) >= 2:
     sys.exit()
 
 ui = Interface()
-user_input = Keybinds()
+userput = Keybinds()
 
 if __name__ == "__main__":
     main()

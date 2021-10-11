@@ -7,8 +7,6 @@
   - [Python](#python_dep)
   - [External](#ext_dep)
   - [Optional](#opt_dep)
-- [Install](#install)
-  - [Setuptools](#install_st)
 - [Usage](#usage)
 - [Default Keybinds](#def_keys)
   - [Page Navigation](#page_keys)
@@ -64,18 +62,6 @@ This fork is only for testing purposes and not actively maintained. It uses GNOM
 - totem (default player)
 - gnome-terminal (default terminal)
 - weechat (recommended) / irssi
-
-<a id="install"></a>
-
-# Installation
-
-<a id="install_st"></a>
-
-## Setuptools
-
-System: `python setup.py install`
-
-User: `python setup.py install --user`
 
 <a id="usage"></a>
 

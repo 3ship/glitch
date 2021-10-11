@@ -1,11 +1,11 @@
-.TH reflex-curses 1 "" "" "reflex-curses"
+.TH glitch 1 "" "" "glitch"
 .SH NAME
-reflex-curses \- a TUI/CLI twitch streamlink wrapper
+glitch \- a TUI/CLI twitch streamlink wrapper
 .SH SYNOPSIS
-.B reflex-curses
+.B glitch
 [\fBOPTION\fR]
 .SH DESCRIPTION
-.B reflex-curses
+.B glitch
 is a TUI/CLI wrapper around streamlink, allowing for easy launching
 of twitch.tv streams from your terminal.
 .br
@@ -47,14 +47,14 @@ Locally followed channels
 .SH CONFIG
 .SS [keys]
 .TP
-\fBadd\fR (default: a)
+\fBadd\fR (default: A)
 .br
 Adds a twitch channel to your local follow list.
 .TP
 \fBchat\fR (default: c)
 Opens up chat using \fBchat_method\fR.
 .TP
-\fBdelete\fR (default: d)
+\fBdelete\fR (default: k)
 Deletes selected twitch channel from your followed list.
 .TP
 \fBfollowed\fR (default: f)
@@ -69,28 +69,28 @@ Go back to previous view.
 \fBimport\fR (default: i)
 Import followed list from a twitch account.
 .TP
-\fBdown\fR (default: j)
+\fBdown\fR (default: s)
 Move the cursor down.
 .TP
-\fBup\fR (default: k)
+\fBup\fR (default: w)
 Move the cursor up.
 .TP
-\fBforward\fR (default: l)
+\fBforward\fR (default: e)
 Launch a stream or enter into sub-menu.
 .TP
-\fBonline\fR (default: o)
+\fBonline\fR (default: f)
 If viewing the followed list, toggle between currently live streams and all followed channels.
 .TP
 \fBquit\fR (default: q)
-Quit reflex-curses.
+Quit glitch.
 .TP
 \fBrefresh\fR (default: r)
 Refresh current page.
 .TP
-\fBt_streams\fR (default: s)
+\fBt_streams\fR (default: S)
 Go to top streams view.
 .TP
-\fBt_game\fR (default: t)
+\fBt_game\fR (default: G)
 Go to top games view.
 .TP
 \fBsearch\fR (default: /)
@@ -104,13 +104,13 @@ Copy channel url to clipboard
 .br
 \fINOTE\fR: Requires xclip.
 .TP
-\fBpage+\fR (default: n)
+\fBpage+\fR (default: d)
 Go to next page of results.
 .TP
-\fBpage-\fR (default: p)
+\fBpage-\fR (default: a)
 Go to previous page of results.
 .TP
-\fBqual+\fR (default: =)
+\fBqual+\fR (default: +)
 Increase stream quality for launched streams.
 .TP
 \fBqual-\fR (default: -)
@@ -125,18 +125,16 @@ Browser to use to open chat if \fBchat_method\fR is set to browser.
 .br
 Select which method to open twitch chat with.
 .TP
-\fBplayer\fR (default: mpv --force-window=yes)
+\fBplayer\fR (default: totem)
 Media player used for playing streams.
-.br
-\fINOTE\fR: force-window is set by default to handle audio_only streams.
 .TP
-\fBstreamlink\fR (default: streamlink -t '{author} - {title}' --twitch-disable-hosting)
+\fBstreamlink\fR (default: streamlink --twitch-disable-hosting --twitch-disable-ads --player-passthrough hls)
 Streamlink executable used for launching streams.
 .br
 \fINOTE\fR: twitch-disable-hosting is set by default so that streamlink will
 not open a hosted channel instead of the original.
 .TP
-\fBterm\fR (default: urxvt -e)
+\fBterm\fR (default: gnome-terminal --geometry=36x38 --zoom=1.2 --)
 Terminal used to open chat in weechat/irssi.
 .br
 \fINOTE\fR: Flag varies by terminal.
@@ -162,7 +160,7 @@ Twitch API limit: 100
 Maximum amount of times to retry a failed request.
 .SS [ui]
 .TP
-\fBdefault_state\fR (default: games)
+\fBdefault_state\fR (default: followed)
 \fBSupported Values\fR: games, followed, streams
 .br
 Default view to show on startup.
@@ -177,7 +175,7 @@ Color of currently selected item.
 .br
 Color of left window, used for displaying results.
 .TP
-\fBr_win_color\fR (default: green)
+\fBr_win_color\fR (default: red)
 \fBSupported Values\fR: black, blue, cyan, green, magenta, white, yellow, red
 .br
 Color of right window, used for displaying further information.
@@ -212,4 +210,3 @@ Port for the twitch IRC server.
 .br
 \fINOTE:\fR Weechat only
 .SH BUGS
-Report bugs at https://github.com/foldex/reflex-curses

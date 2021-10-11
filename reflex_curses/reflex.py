@@ -22,7 +22,7 @@ VERSION = "0.9.4"
 class Config:
     """Configuration Variables and Locally Followed Twitch Channels."""
 
-    def _it__(self):
+    def __init__(self):
         self.config_dir = path.expanduser("~/.config/reflex-curses")
         self.followed = {}
         self.cp = configparser.ConfigParser()
@@ -155,7 +155,7 @@ class Config:
 class Interface:
     """Curses Interface to display results from Twitch Queries."""
 
-    def _it__(self):
+    def __init__(self):
         self.screen = curses.initscr()
         curses.noecho()
         curses.cbreak()
@@ -495,7 +495,7 @@ class Interface:
 class Keybinds:
     """User input and what to do with pressed keys."""
 
-    def _it__(self):
+    def __init__(self):
         self.cur_key = 0
         self.nav = self.Navigation()
         self.quality = self.Quality()
@@ -640,12 +640,12 @@ class Keybinds:
         def follow_view(self):
             """Go to the followed channels page
             Or Toggle online/all follows"""
-            if (userput.cur_key == config.cp["keys"]["followed"] and ui.state != "follow") or (
-                userput.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "all"
+            if (user_input.cur_key == config.cp["keys"]["followed"] and ui.state != "follow") or (
+                user_input.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "all"
             ):
                 twitch.request(["channel", ",".join(config.followed.values())], "follow")
                 ui.f_filter = "online"
-            elif (userput.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "online"):
+            elif (user_input.cur_key == config.cp["keys"]["online"] and ui.state == "follow" and ui.f_filter == "online"):
                 ui.f_filter = "all"
 
         def add(self):
@@ -678,7 +678,7 @@ class Keybinds:
                 if ui.cur_page:
                     del config.followed[ui.cur_page[ui.sel]["channel"]["name"]]
                     twitch.query = ["channel", ",".join(config.followed.values())]
-                    userput.request.refresh()
+                    user_input.request.refresh()
 
         def user_import(self):
             """Import follows from user"""
@@ -691,7 +691,7 @@ class Keybinds:
             if user:
                 config.import_follows_from_user(user, overwrite)
                 twitch.query = ["channel", ",".join(config.followed.values())]
-                userput.request.refresh()
+                user_input.request.refresh()
 
     class Request:
         """Keys used to query twitch"""
@@ -828,7 +828,7 @@ class Keybinds:
 class Query:
     """Make requests to Twitch and store results."""
 
-    def _it__(self):
+    def __init__(self):
         self.cache = []
         self.data = []
         self.query = ["topgames", None]
@@ -944,7 +944,7 @@ class Query:
 class CLI:
     """Commands to be run without the TUI interface"""
 
-    def _it__(self):
+    def __init__(self):
         self.arg_num = len(sys.argv)
         self.cur_arg = sys.argv[1]
 
@@ -1068,7 +1068,7 @@ def main():
     try:
         twitch.get_default_view()
 
-        while userput.cur_key != config.cp["keys"]["quit"]:
+        while user_input.cur_key != config.cp["keys"]["quit"]:
 
             if ui.donothing:
                 ui.donothing = False
@@ -1082,7 +1082,7 @@ def main():
                     ui.draw_win_l()
                     ui.draw_win_r()
 
-            userput.input()
+            user_input.input()
     finally:
         curses.nocbreak()
         ui.screen.keypad(0)
@@ -1105,7 +1105,7 @@ if len(sys.argv) >= 2:
     sys.exit()
 
 ui = Interface()
-userput = Keybinds()
+user_input = Keybinds()
 
 if __name__ == "__main__":
     main()

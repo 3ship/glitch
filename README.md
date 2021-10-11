@@ -32,7 +32,7 @@
 [Reflex-Curses](https://github.com/Foldex/reflex-curses) is a TUI/CLI wrapper around streamlink, allowing for easy launching
 of twitch.tv streams from your terminal.
 
-This fork is only for testing purposes and not actively maintained. It uses GNOME apps like `totem` and `gnome-terminal` by default, apart from some other minor changes like "improved" weechat support.
+This fork is only for testing purposes and not actively maintained. It uses GNOME apps like `totem` and `gnome-terminal` by default, apart from some other minor changes like WASD keybindings. Weechat is turned into a bare-bones read-only chat, but can open multiple instances.
 
 <a id="depend"></a>
 

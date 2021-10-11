@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/reflex.png" title="reflex-curses"/>
+  <img src="/gnitch.webp" title="gnitch"/>
 </p>
 
 - [Description](#desc)

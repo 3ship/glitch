@@ -85,7 +85,7 @@ User: `python setup.py install --user`
 # Usage
 
 ```
-reflex-curses [OPTION]
+glitch [OPTION]
 
 OPTIONS
        NONE   Starts up the tui interface
@@ -109,7 +109,7 @@ OPTIONS
        -v     Print version
 ```
 
-More info available from the man page: `man reflex-curses`
+More info available from the man page: `man glitch`
 
 An example dmenu script is [Here](./scripts/dmenu_streams.sh)
 
@@ -253,7 +253,7 @@ port = 6697
 
 ## IRC
 
-Reflex will by default connect to the saved network `reflex`.
+Glitch will by default connect to the saved network `reflex`.
 
 To connect to twitch irc, you must either connect with the nick
 `justinfanRANDOMNUMBERHERE` or use an [OAUTH Token](https://twitchapps.com/tmi/)
@@ -286,8 +286,8 @@ it to your saved network.
 
 ## Followed List Import
 
-In addition to the -i flag, reflex-curses can also mass import a list of channel names from a file.
+In addition to the -i flag, glitch can also mass import a list of channel names from a file.
 
 Place entries (one per line) in `~/.config/reflex-curses/followed`
 
-Reflex-Curses will resolve the Channel IDs on startup.
+Glitch will resolve the Channel IDs on startup.

@@ -1,11 +1,11 @@
-.TH glitch 1 "" "" "glitch"
+.TH gnitch 1 "" "" "gnitch"
 .SH NAME
-glitch \- a TUI/CLI twitch streamlink wrapper
+gnitch \- a TUI/CLI twitch streamlink wrapper
 .SH SYNOPSIS
-.B glitch
+.B gnitch
 [\fBOPTION\fR]
 .SH DESCRIPTION
-.B glitch
+.B gnitch
 is a TUI/CLI wrapper around streamlink, allowing for easy launching
 of twitch.tv streams from your terminal.
 .br
@@ -40,9 +40,9 @@ Default is to append to your current followed list, add --overwrite to replace i
 Print version
 .SH FILES
 Files are saved on exit, be careful when manually editing.
-.IP \fB~/.config/reflex-curses/config\fR
+.IP \fB~/.config/gnitch/config\fR
 Configuration settings
-.IP \fB~/.config/reflex-curses/followed\fR
+.IP \fB~/.config/gnitch/followed\fR
 Locally followed channels
 .SH CONFIG
 .SS [keys]
@@ -82,7 +82,7 @@ Launch a stream or enter into sub-menu.
 If viewing the followed list, toggle between currently live streams and all followed channels.
 .TP
 \fBquit\fR (default: q)
-Quit glitch.
+Quit gnitch.
 .TP
 \fBrefresh\fR (default: r)
 Refresh current page.

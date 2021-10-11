@@ -9,7 +9,6 @@
   - [Optional](#opt_dep)
 - [Install](#install)
   - [Setuptools](#install_st)
-  - [Manual](#install_manual)
 - [Usage](#usage)
 - [Default Keybinds](#def_keys)
   - [Page Navigation](#page_keys)
@@ -73,12 +72,6 @@ This fork is only for testing purposes and not actively maintained. It uses GNOM
 System: `python setup.py install`
 
 User: `python setup.py install --user`
-
-<a id="install_manual"></a>
-
-## Manual
-
-`sudo make install`
 
 <a id="usage"></a>
 

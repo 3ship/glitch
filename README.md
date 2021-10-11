@@ -266,15 +266,9 @@ Documentation](https://dev.twitch.tv/docs/irc/guide)
 
 ### Weechat
 
-If you are connecting with weechat and using `no_account`, no configuration
-should be necessary, as reflex can add the network itself through launch arguments.
+Simplified, read-only chat window.
 
-If using an account, see the above section on getting your oauth token and add
-it to your saved network.
-
-NOTE: Reflex uses `irc.server.network_name.autojoin` in order to automatically
-connect to a channel when launched. It will overwrite the variable should it
-exist.
+Uses `weechat -t` to create a temporary Weechat directory that will be deleted after closing.
 
 <a id="irssi"></a>
 

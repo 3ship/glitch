@@ -182,13 +182,13 @@ An example dmenu script is [Here](./scripts/dmenu_streams.sh)
 
 # Configuration
 
-Configuration files are stored in `~/.config/reflex-curses`
+Configuration files are stored in `~/.config/gnitch`
 
 <a id="conf_file"></a>
 
 ## Config File
 
-Config file is stored in `~/.config/reflex-curses/config`
+Config file is stored in `~/.config/gnitch/config`
 
 Default Config Example:
 
@@ -285,6 +285,6 @@ it to your saved network.
 
 In addition to the -i flag, glitch can also mass import a list of channel names from a file.
 
-Place entries (one per line) in `~/.config/reflex-curses/followed`
+Place entries (one per line) in `~/.config/gnitch/followed`
 
 Glitch will resolve the Channel IDs on startup.

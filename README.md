@@ -68,7 +68,7 @@ This fork is only for testing purposes and not actively maintained. It uses GNOM
 # Usage
 
 ```
-glitch [OPTION]
+gnitch [OPTION]
 
 OPTIONS
        NONE   Starts up the tui interface
@@ -92,7 +92,7 @@ OPTIONS
        -v     Print version
 ```
 
-More info available from the man page: `man glitch`
+More info available from the man page: `man gnitch`
 
 An example dmenu script is [Here](./scripts/dmenu_streams.sh)
 
@@ -236,7 +236,7 @@ port = 6697
 
 ## IRC
 
-Glitch will by default connect to the saved network `reflex`.
+Gnitch will by default connect to the saved network `reflex`.
 
 To connect to twitch irc, you must either connect with the nick
 `justinfanRANDOMNUMBERHERE` or use an [OAUTH Token](https://twitchapps.com/tmi/)
@@ -269,8 +269,8 @@ it to your saved network.
 
 ## Followed List Import
 
-In addition to the -i flag, glitch can also mass import a list of channel names from a file.
+In addition to the -i flag, gnitch can also mass import a list of channel names from a file.
 
 Place entries (one per line) in `~/.config/gnitch/followed`
 
-Glitch will resolve the Channel IDs on startup.
+Gnitch will resolve the Channel IDs on startup.

@@ -749,17 +749,6 @@ class Keybinds:
                         f"/set irc.server.{network}.nicks justinfan{num};"
                         f"/set irc.server.{network}.username justinfan{num};"
                         f"/set irc.server.{network}.realname justinfan{num};"
-                        # Removing all the weechat clutter to get a simplified chat window
-                        # Also disabling logs to save space
-                        # Doing it here because I don't know wtf I'm doing:
-                        f"/set weechat.bar.buflist.hidden on;"
-                        f"/set weechat.bar.nicklist.hidden on;"
-                        f"/set weechat.bar.status.hidden on;"
-                        f"/set weechat.bar.title.hidden on;"
-                        f"/set weechat.bar.input.hidden on;"
-                        f"/set weechat.look.prefix_align_max 6;"
-                        f'/set weechat.look.buffer_time_format "";'
-                        f"/set logger.file.auto_log off;"
                     )
                 else:
                     nicks = ""
@@ -775,6 +764,16 @@ class Keybinds:
                     "/quote CAP REQ :twitch.tv/membership;"
                     f"/set irc.server.{network}.ssl on;"
                     f"{nicks}"
+                    # Removing all the weechat clutter for cleaner chat window
+                    # Also disabling logs to save space
+                    f"/set weechat.bar.buflist.hidden on;"
+                    f"/set weechat.bar.nicklist.hidden on;"
+                    f"/set weechat.bar.status.hidden on;"
+                    f"/set weechat.bar.title.hidden on;"
+                    f"/set weechat.bar.input.hidden on;"
+                    f"/set weechat.look.prefix_align_max 6;"
+                    f'/set weechat.look.buffer_time_format "";'
+                    f"/set logger.file.auto_log off;"
                     # Setting autojoin is kind of hacky
                     # It will overwrite the saved setting for the network
                     # TODO Alternatives for cleaner joining?
